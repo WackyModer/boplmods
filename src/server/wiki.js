@@ -13,26 +13,36 @@ function doesFileExist(path) {
 }
 
 function returnPage(req, res) {
-    const data = fs.readFileSync('accounts.json');
-    var accounts = JSON.parse(data);
-
-    if(accounts[req.params.userId]) {
-        res.send(accounts[req.params.userId]);
-    } else {
-        res.send({
-            "error": "Page does not exist",
-            "errorId": 4041,
-        })
-        res.status(404);
-    }
+    console.log("page");
 }
 
 function createPage(req, res) {
-    if 
+    if(doesFileExist()) {
+        res.send({
+            "error": "Could not create page as it exists",
+            "errorID": 1005
+        })
+        res.status(416);
+    }
+    req.params.pageName
+}
+
+function mainPage(req, res) {
+    
+}
+
+function wikiLoader() {
+
+}
+
+function wikiLoaderPage() {
+
 }
 
 module.exports = {
   mainPage,
   returnPage,
-  createPage
+  createPage,
+  wikiLoader,
+  wikiLoaderPage
 }
