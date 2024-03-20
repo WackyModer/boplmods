@@ -117,5 +117,5 @@ dist
 storage/mods/raw
 storage/mods/source
 storage/accs
-storage/wiki
+storage/public/wiki
 storage/forum
