@@ -114,8 +114,8 @@ dist
 .pnp.*
 
 
-storage/mods/raw/*
-storage/mods/source/*
-storage/accs/*
-storage/public/wiki/*
-storage/forum/*
+# storage/mods/raw/*
+# storage/mods/source/*
+# storage/accs/*
+# storage/public/wiki/*
+# storage/forum/*
