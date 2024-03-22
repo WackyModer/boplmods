@@ -40,9 +40,7 @@ function returnPageRaw() {
 }
 
 module.exports = {
-  mainPage,
   returnPage,
   createPage,
-  mainPageRaw,
   returnPageRaw
 }

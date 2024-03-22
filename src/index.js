@@ -3,11 +3,12 @@ const port = 3000;
 const app = express();
 var wiki = require('./server/wiki.js');
 
+// Static pages stuff, because I do NOT wanna be stuck with routing forever
+app.use(express.static('./storage/public'));
+
 
 // Wiki section
-app.get('/wiki', wiki.mainPage);
 app.get('/wiki/:page', wiki.returnPage);
-app.get('/wikiData', wiki.mainPageRaw);
 app.get('/wikiData/:page', wiki.returnPageRaw);
 app.post('/wikiData/createPage/:pageName', wiki.createPage)
 
@@ -100,9 +101,9 @@ async function backupLoop() {
         console.log("Finished Backup!")
         //const output = execSync('ls', { encoding: 'utf-8' }); 
         //console.log('Output was:\n', output);
-        await fuckingSleepPls(3000);
+        await fuckingSleepPls(86400000);
     }
 }
 
-console.log("Entering backup loop");
-backupLoop();
+//console.log("Entering backup loop");
+//backupLoop();
