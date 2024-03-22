@@ -31,11 +31,11 @@ function mainPage(req, res) {
     
 }
 
-function wikiLoader() {
+function mainPageRaw() {
 
 }
 
-function wikiLoaderPage() {
+function returnPageRaw() {
 
 }
 
@@ -43,6 +43,6 @@ module.exports = {
   mainPage,
   returnPage,
   createPage,
-  wikiLoader,
-  wikiLoaderPage
+  mainPageRaw,
+  returnPageRaw
 }
