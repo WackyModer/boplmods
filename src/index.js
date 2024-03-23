@@ -2,6 +2,7 @@ const express = require('express');
 const port = 3000;
 const app = express();
 var wiki = require('./server/wiki.js');
+var os = require('os');
 
 // Static pages stuff, because I do NOT wanna be stuck with routing forever
 app.use(express.static('./storage/public'));
@@ -10,7 +11,14 @@ app.use(express.static('./storage/public'));
 // Wiki section
 app.get('/wiki/:page', wiki.returnPage);
 app.get('/wikiData/:page', wiki.returnPageRaw);
-app.post('/wikiData/createPage/:pageName', wiki.createPage)
+app.post('/wikiData/createPage/:pageName', wiki.createPage);
+
+app.get('/server/uptime', (req, res) => {
+    res.send(`Server has been up for ${process.uptime().toFixed(0)} seconds, so it is ${(43200-process.uptime()).toFixed(0)} seconds from updating (Updates every 12 hours)
+    <br><br>
+    Current usages are: ${(100-os.freemem()/os.totalmem()*100).toFixed(1)}% (${((os.totalmem()-os.freemem())/1024/1024/1024).toFixed(1)} GB) mem usage (theres not that much mem)`)
+    res.status(200);
+});
 
 app.use(function(req, res, next) {
     res.status(404);
@@ -87,7 +95,7 @@ async function backupLoop() {
         output = execSync(`xcopy .\\storage\\ .\\backupStorageLoc\\${backupFolderName} /E/H/C/I`, { encoding: 'utf-8' }); // put your copy command here
         // linux
         // Preferably ../mountedStorage would be where you mount your drive.
-        //output = execSync('cp ../storage/* ../mountedStorage/backupStorageLoc/', { encoding: 'utf-8' }); // put your copy command here
+        //output = execSync('cp ../storage/* /mountedStorage/backupStorageLoc/', { encoding: 'utf-8' }); // put your copy command here
 
         backupCount++;
 
