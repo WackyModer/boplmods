@@ -10,7 +10,7 @@ app.use((req,res) => {
     const clientIPv4_2 = req.headers['cf-pseudo-ipv4']; // May be undefined
     const clientIPv4_3 = req.headers['x-forwarded-for'];
 
-    console.log(`New connection, ${clientIPv4} | ${clientIPv4_2} | ${clientIPv4_3} | ${clientIPv6} | at resource ${req.path}`);
+    console.log(`New connection, ${clientIPv4} | ${clientIPv4_3} | at resource ${req.path}`);
     res.send("leave.");
     res.status(200);//406)
     return;
