@@ -4,6 +4,17 @@ const app = express();
 var wiki = require('./server/wiki.js');
 var os = require('os');
 
+app.use((req,res) => {
+    const clientIPv4 = req.ip; // Retrieve IPv4 address
+    const clientIPv6 = req.socket.remoteAddress; // Retrieve IPv6 address
+    const clientIPv6_2 = req.connection.remoteAddress;
+
+    console.log(`New connection, ${clientIPv4} | ${clientIPv6} | ${clientIPv6_2}`);
+    res.send("leave.");
+    res.status(200);//406)
+    return;
+})
+
 // Static pages stuff, because I do NOT wanna be stuck with routing forever
 app.use(express.static('./storage/public'));
 
