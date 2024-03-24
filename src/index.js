@@ -5,12 +5,12 @@ var wiki = require('./server/wiki.js');
 var os = require('os');
 
 app.use((req,res) => {
-    const clientIPv4 = req.headers['cf-connecting-ip']; // Retrieve IPv4 address
-    const clientIPv6 = req.headers['​​cf-connecting-ipv6']; // Retrieve IPv6 address
-    const clientIPv4_2 = req.headers['cf-pseudo-ipv4'];
+    const clientIPv4 = req.headers['cf-connecting-ip'];
+    const clientIPv6 = req.headers['​​cf-connecting-ipv6']; // May be undefined
+    const clientIPv4_2 = req.headers['cf-pseudo-ipv4']; // May be undefined
     const clientIPv4_3 = req.headers['x-forwarded-for'];
 
-    console.log(`New connection, ${clientIPv4} | ${clientIPv4_2} | ${clientIPv4_3} | ${clientIPv6}`);
+    console.log(`New connection, ${clientIPv4} | ${clientIPv4_2} | ${clientIPv4_3} | ${clientIPv6} | at resource ${req.path}`);
     res.send("leave.");
     res.status(200);//406)
     return;
