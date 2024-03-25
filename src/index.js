@@ -10,6 +10,12 @@ app.use((req,res) => {
     const clientIPv4_2 = req.headers['cf-pseudo-ipv4']; // May be undefined
     const clientIPv4_3 = req.headers['x-forwarded-for'];
 
+    if(clientIPv4 == "103.102.228.228"){
+        res.send("Something has gone VERY wrong.<br><br>DM \'wackymoder\' on discord with the error code 1003").status(200);
+        console.log("hoe tried");
+        return;
+    }
+
     console.log(`New connection, ${clientIPv4} | ${clientIPv4_3} | at resource ${req.path} | UA ${req.headers['user-agent']}`);
     res.send("leave.");
     res.status(200);//406)
