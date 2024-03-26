@@ -6,12 +6,12 @@ var wiki = require('./server/wiki.js');
 var blocking = require('./server/blocking.js');
 
 var fs = require('fs');
-
+var path = require('path');
 var os = require('os');
 
 // setup stuff
 
-/*if(!fs.existsSync(__dirname+"../../storage/misc/blockedInfo.json")) {
+/*if(!fs.existsSync()) {
     fs.writeFileSync(__dirname+"../../storage/misc/blockedInfo.json", JSON.stringify(
     {  
         "bans": {
@@ -26,6 +26,33 @@ var os = require('os');
         }
     }));
 }*/
+filePath = __dirname+"/../../storage/misc/blockedInfo.json"
+
+const directoryPath = path.dirname(filePath);
+
+fs.access(directoryPath, fs.constants.F_OK, (err) => {
+  if (err) {
+    fs.mkdirSync(directoryPath, { recursive: true });
+    console.log(`Directory ${directoryPath} created`);
+  }
+
+  fs.writeFile(filePath, JSON.stringify(
+    {  
+        "bans": {
+            "emails": {},
+            "ip": {}
+        },
+        "ipBanSchema": {
+            "utcTimeBanned": 232323,
+            "reasonBanned": "",
+            "lengthBanned": "",
+            "logHistory": ""
+        }
+    }), (err) => {
+    if (err) throw err;
+    console.log(`File ${filePath} created`);
+  });
+});
 
 
 app.use((req,res, next) => {
