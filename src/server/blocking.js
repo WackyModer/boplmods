@@ -1,7 +1,8 @@
 const fs = require('fs');
 
 // Path to the JSON file
-const bansFilePath = __dirname+'../../../storage/sensitive/blockedInfo.json';
+// change to ../../../ for windows testing.
+const bansFilePath = __dirname+'../../storage/sensitive/blockedInfo.json';
 
 function isBlocked(clientIPv4, req, res) {
     var blockList = fs.readFileSync(bansFilePath);
