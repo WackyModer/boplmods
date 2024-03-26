@@ -121,4 +121,4 @@ storage/wiki/raw/*
 
 storage/accs/*
 storage/forum/*
-storage/misc/*
+storage/misc/blockedInfo.json
