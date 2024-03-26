@@ -11,7 +11,7 @@ function isBlocked(clientIPv4, req, res) {
     var banObject = blockList.bans.ip[clientIPv4];
 
     if(!banObject) {
-        if(req.url.endsWith('.php') || req.url.contains("wp-includes")) {
+        if(req.url.endsWith('.php') || req.url.includes("wp-includes")) {
             banObject = {
                 "utcTimeBanned": (Date.now()/1000).toFixed(0),
                 "reasonBanned": "Seemingly trying to find a .php file or wordpress crap. Pretty sketch, don't do it.",
