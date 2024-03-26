@@ -11,7 +11,7 @@ var os = require('os');
 
 // setup stuff
 
-if(!fs.existsSync(__dirname+"../../storage/misc/blockedInfo.json")) {
+/*if(!fs.existsSync(__dirname+"../../storage/misc/blockedInfo.json")) {
     fs.writeFileSync(__dirname+"../../storage/misc/blockedInfo.json", JSON.stringify(
     {  
         "bans": {
@@ -25,7 +25,7 @@ if(!fs.existsSync(__dirname+"../../storage/misc/blockedInfo.json")) {
             "logHistory": ""
         }
     }));
-}
+}*/
 
 
 app.use((req,res, next) => {
