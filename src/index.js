@@ -28,6 +28,10 @@ var os = require('os');
 }*/
 filePath = __dirname+"/../../storage/misc/blockedInfo.json"
 
+if (!fs.existsSync( __dirname+"/../../storage/misc/")){
+    fs.mkdirSync( __dirname+"/../../storage/misc/", { recursive: true });
+}
+
 fs.writeFile(filePath, JSON.stringify(
 {  
     "bans": {
