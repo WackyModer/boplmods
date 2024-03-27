@@ -1,1 +1,13 @@
-{"bans":{"emails":{},"ip":{}},"ipBanSchema":{"utcTimeBanned":232323,"reasonBanned":"","lengthBanned":"","logHistory":""}}
+{
+  "bans": {
+    "emails": {},
+    "ip": {
+    }
+  },
+  "ipBanSchema": {
+    "utcTimeBanned": 232323,
+    "reasonBanned": "",
+    "lengthBanned": "",
+    "logHistory": ""
+  }
+}

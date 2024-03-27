@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <script>
+async function update() {
+    var password = document.getElementById("psw").value;
+
+    await fetch("/api/updateShit", {        
+        method: "GET",
+        headers: {
+            "authshit": password
+        }
+    });
+}
+
+async function rebootServer() {
+    var password = document.getElementById("psw").value;
+
+    await fetch("/api/rebootYourselfNow", {        
+        method: "GET",
+        headers: {
+            "authshit": password
+        }
+    });
+}
+
+async function stopForTwoHours() {
+    var password = document.getElementById("psw").value;
+
+    await fetch("/api/ughStupidDosShit", {        
+        method: "GET",
+        headers: {
+            "authshit": password
+        }
+    });
+}
+        </script>
+    </head>
+
+    <body>
+        <h1>THIS IS THE ADMIN PANEL.</h1>
+
+        <h2>If you get the password wrong you get ip banned for <b>3 months.</b></h2>
+        <h3>I don't play.</h3>
+
+        <input type="text" id="psw"></input>
+
+        <button onclick="rebootServer()">Reboot</button>
+        <button onclick="stopForTwoHours()">2 hour pause</button>
+        <button onclick="update()">update</button>
+    </body>
+</html>

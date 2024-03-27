@@ -4,11 +4,26 @@ const app = express();
 
 var wiki = require('./server/wiki.js');
 var blocking = require('./server/blocking.js');
+var api = require('./server/api.js');
 
 var fs = require('fs');
 var path = require('path');
 var os = require('os');
 
+async function configCheck() {
+    while (true) {
+        var config = JSON.parse(fs.readFileSync(__dirname+"/../storage/sensitive/config.json"));
+        if(!config.isSetup) {
+            console.log("Config.json not set up!")
+            await fuckingSleepPls(3000); // Polls every 5 seconds for it
+        } else {
+            break;
+        }
+    }
+}
+
+// grr config needs to be setup
+configCheck().then(() => {
 
 app.use((req,res, next) => {
     const clientIPv4 = req.headers['cf-connecting-ip'];
@@ -24,9 +39,11 @@ app.use((req,res, next) => {
 
     console.log(`${curDate.toUTCString()} | New connection, ${clientIPv4} | ${clientIPv4_3} | at resource ${req.path} | UA ${req.headers['user-agent']}`);
     
-    res.send("<h2 style=\"font-family: arial;\">You aren't meant to be here yet D:</h2>")
-    res.status(200);
-    return;
+    next();
+
+    //res.send("<h2 style=\"font-family: arial;\">You aren't meant to be here yet D:</h2>")
+    //res.status(200);
+    //return;
 })
 
 // Static pages stuff, because I do NOT wanna be stuck with routing forever
@@ -34,11 +51,21 @@ app.use(express.static('./storage/public'));
 
 
 // Wiki section
-app.get('/wiki/:page', wiki.returnPage);
 app.get('/wikiData/:page', wiki.returnPageRaw);
-app.post('/wikiData/createPage/:pageName', wiki.createPage);
+app.post('/wikiData/:pageName', wiki.createPage);
+app.put('/wikiData/:pageName', wiki.updatePage);
 
+
+// api section
+
+app.get('/api/rebootYourselfNow', api.rebootServer);
+app.get('/api/updateShit', api.updateMyShit);
+//app.get('/api/ughStupidDosShit', api.turnOffTunnelTwoHours)
+
+
+// Server stuff
 app.get('/server/uptime', (req, res) => {
+    req.headers['']
     res.send(`Server has been up for ${process.uptime().toFixed(0)} seconds, so it is ${(21600-process.uptime()).toFixed(0)} seconds from updating (Updates every 6 hours)
     <br><br>
     Current usages are: ${(100-os.freemem()/os.totalmem()*100).toFixed(1)}% (${((os.totalmem()-os.freemem())/1024/1024/1024).toFixed(1)} GB) mem usage (theres not that much mem)`)
@@ -46,54 +73,45 @@ app.get('/server/uptime', (req, res) => {
 });
 
 app.use(function(req, res, next) {
-    res.status(404);
     
     if(req.url.toLowerCase().startsWith('/wiki/')) {    
-        res.send(`
-        <div style="
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        ">
-        <div style="
-        text-align: center;
-        ">
-        <h2>
-        Uh oh! Seems like you got lost
-        </h2>
-        <h3>Click <i><b><a style="cursor: pointer;" onclick="window.history.go(-1); return false">here</a></b></i> to go back or <i><b><a style="cursor: pointer;" onclick="window.location.href = "/wiki"; return false;">here</a></b></i> to got to the main page</h3>
-        </div<
-        </div>
-        
-        `).end();
+        res.sendFile(path.resolve(__dirname+"/../storage/specialPages/404Wiki.html"));
+        res.status(404);
         return;
     }
 
     // respond with html page
     if (req.accepts('html')) {
-        res.send("<h1>h</h1>").end();
+        res.sendFile(path.resolve(__dirname+"/../storage/specialPages/404.html"));
+        res.status(404);
         return;
     }
   
     // respond with json
     if (req.accepts('json')) {
         res.json({ error: 'Not found' });
+        res.status(404);
         return;
     }
   
     // default to plain-text. send()
     res.type('txt').send('Not found');
+    res.status(404);
 });
+
 app.listen(port, () => {
     console.log(`Express server has started on port ${port}`)
 });
-/*
+
+
+});
+
 function fuckingSleepPls(ms) {
     return new Promise((resolve) => {
         setTimeout(resolve, ms);
     });
 }
+/*
 async function backupLoop() {
     // start backup process
     var backupCount = 0
@@ -142,3 +160,4 @@ async function backupLoop() {
 //backupLoop();
 
 */
+

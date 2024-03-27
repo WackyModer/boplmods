@@ -11,10 +11,10 @@ function isBlocked(clientIPv4, req, res) {
     var banObject = blockList.bans.ip[clientIPv4];
 
     if(!banObject) {
-        if(req.url.endsWith('.php') || req.url.includes("wp-includes")) {
+        if(req.url.endsWith('.php') || req.url.endsWith('.ini') || req.url.includes("wp-includes") || req.url.includes('phpinfo') || req.url.includes(".git") || req.url.includes(".env")) {
             banObject = {
                 "utcTimeBanned": (Date.now()/1000).toFixed(0),
-                "reasonBanned": "Seemingly trying to find a .php file or wordpress crap. Pretty sketch, don't do it.",
+                "reasonBanned": "YO DON'T HACK MY SHIT",
                 "lengthBanned": 2592000,
                 "logHistoryAfterBan": `${new Date().toUTCString()} | Blocked connection ${clientIPv4} | at resource ${req.path} | UA ${req.headers['user-agent']}\n`
             };

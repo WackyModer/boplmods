@@ -27,20 +27,17 @@ function createPage(req, res) {
     req.params.pageName
 }
 
-function mainPage(req, res) {
-    
-}
-
-function mainPageRaw() {
+function updatePage(req, res) {
 
 }
 
 function returnPageRaw() {
-
+    // uhhh so all this has got to do is check if
+    // a .raw file exists in
 }
 
 module.exports = {
-  returnPage,
   createPage,
-  returnPageRaw
+  returnPageRaw,
+  updatePage
 }
