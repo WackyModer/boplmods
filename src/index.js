@@ -10,10 +10,13 @@ var fs = require('fs');
 var path = require('path');
 var os = require('os');
 
+
+console.log(path.resolve(__dirname + "/../storage/misc/blockedInfo.json"));
+
 // should work :pray: :pray: :pray:
-fs.access(__dirname + "/../storage/misc/blockedInfo.json", fs.constants.F_OK, (err) => {
+fs.access(path.resolve(__dirname + "/../storage/misc/blockedInfo.json"), fs.constants.F_OK, (err) => {
     if (err) {
-        fs.writeFile(__dirname + "/../storage/misc/blockedInfo.json", JSON.stringify({
+        fs.writeFile(path.resolve(__dirname + "/../storage/misc/blockedInfo.json"), JSON.stringify({
                 "bans": {
                     "emails": {},
                     "ip": {}
@@ -41,7 +44,7 @@ fs.access(__dirname + "/../storage/misc/blockedInfo.json", fs.constants.F_OK, (e
 
 async function configCheck() {
     while (true) {
-        var config = JSON.parse(fs.readFileSync(__dirname+"/../storage/sensitive/config.json"));
+        var config = JSON.parse(fs.readFileSync(path.resolve(__dirname+"/../storage/sensitive/config.json")));
         if(!config.isSetup) {
             console.log("Config.json not set up!")
             await fuckingSleepPls(3000); // Polls every 5 seconds for it
