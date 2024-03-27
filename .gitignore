@@ -113,3 +113,5 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+storage/misc/blockedInfo.json
+
