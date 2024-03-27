@@ -10,6 +10,24 @@ var fs = require('fs');
 var path = require('path');
 var os = require('os');
 
+if (!fs.existsSync(__dirname+"/../storage/misc/blockedInfo.json")) {
+    fs.writeFileSync(__dirname+"/../storage/misc/blockedInfo.json", JSON.stringify(
+        {
+            "bans": {
+              "emails": {},
+              "ip": {
+              }
+            },
+            "ipBanSchema": {
+              "utcTimeBanned": 232323,
+              "reasonBanned": "",
+              "lengthBanned": "",
+              "logHistory": ""
+            }
+        }
+        ,null,2))
+}
+
 async function configCheck() {
     while (true) {
         var config = JSON.parse(fs.readFileSync(__dirname+"/../storage/sensitive/config.json"));
