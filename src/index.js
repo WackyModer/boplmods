@@ -10,23 +10,34 @@ var fs = require('fs');
 var path = require('path');
 var os = require('os');
 
-if (!fs.existsSync(__dirname+"/../storage/misc/blockedInfo.json")) {
-    fs.writeFileSync(__dirname+"/../storage/misc/blockedInfo.json", JSON.stringify(
-        {
-            "bans": {
-              "emails": {},
-              "ip": {
-              }
-            },
-            "ipBanSchema": {
-              "utcTimeBanned": 232323,
-              "reasonBanned": "",
-              "lengthBanned": "",
-              "logHistory": ""
+// should work :pray: :pray: :pray:
+fs.access(__dirname + "/../storage/misc/blockedInfo.json", fs.constants.F_OK, (err) => {
+    if (err) {
+        fs.writeFile(__dirname + "/../storage/misc/blockedInfo.json", JSON.stringify({
+                "bans": {
+                    "emails": {},
+                    "ip": {}
+                },
+                "ipBanSchema": {
+                    "utcTimeBanned": 232323,
+                    "reasonBanned": "",
+                    "lengthBanned": "",
+                    "logHistory": ""
+                }
+            }, null, 2),
+            (err) => {
+                if (err) {
+                    console.error("Error creating file:", err);
+                } else {
+                    console.log("File created successfully");
+                }
             }
-        }
-        ,null,2))
-}
+        );
+    } else {
+        console.log("File already exists");
+    }
+});
+
 
 async function configCheck() {
     while (true) {
