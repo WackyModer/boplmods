@@ -95,6 +95,14 @@ app.get('/api/updateShit', api.updateMyShit);
 //app.get('/api/ughStupidDosShit', api.turnOffTunnelTwoHours)
 
 
+// make /discord bring you to discord :blehhhhhh:
+
+app.get('/discord*', (req, res) => {
+    res.redirect(308, 'https://discord.gg/official-bopl-battle-modding-comunity-1175164882388275310');
+    return;
+})
+
+
 // Server stuff
 app.get('/server/uptime', (req, res) => {
     req.headers['']

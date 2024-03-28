@@ -9,9 +9,10 @@ function isBlocked(clientIPv4, req, res) {
     blockList = JSON.parse(blockList);
 
     var banObject = blockList.bans.ip[clientIPv4];
-
+    var e = "";
+    e.trim()
     if(!banObject) {
-        if(req.url.endsWith('.php') || req.url.endsWith('.ini') || req.url.includes("wp-includes") || req.url.includes('phpinfo') || req.url.includes(".git") || req.url.includes(".env")) {
+        if(req.url.includes('.php') || req.url.includes('.ini') || req.url.includes("wp-admin") || req.url.includes("wp-includes") || req.url.includes('phpinfo') || req.url.includes(".git") || req.url.includes(".env")) {
             banObject = {
                 "utcTimeBanned": (Date.now()/1000).toFixed(0),
                 "reasonBanned": "YO DON'T HACK MY SHIT",
