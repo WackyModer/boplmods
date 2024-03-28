@@ -112,6 +112,12 @@ app.use(function(req, res, next) {
         return;
     }
 
+    if(req.url.toLowerCase().startsWith('/mods/')) {
+        res.sendFile(path.resolve(__dirname+"/../storage/specialPages/404Mod.html"));
+        res.status(404);
+        return;
+    }
+
     // respond with html page
     if (req.accepts('html')) {
         res.sendFile(path.resolve(__dirname+"/../storage/specialPages/404.html"));
