@@ -79,7 +79,7 @@ app.use((req,res, next) => {
 })
 
 // Static pages stuff, because I do NOT wanna be stuck with routing forever
-app.use(express.static('./storage/public'));
+app.use(express.static(path.resolve(__dirname + './storage/public')));
 
 
 // Wiki section
