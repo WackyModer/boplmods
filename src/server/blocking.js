@@ -1,7 +1,6 @@
 const fs = require('fs');
 
 // Path to the JSON file
-// change to /../../ for windows testing.
 const bansFilePath = __dirname+'/../../storage/misc/blockedInfo.json';
 
 function isBlocked(clientIPv4, req, res) {
@@ -12,7 +11,9 @@ function isBlocked(clientIPv4, req, res) {
     var e = "";
     e.trim()
     if(!banObject) {
-        if(req.url.includes('.php') || req.url.includes('.ini') || req.url.includes("wp-admin") || req.url.includes("wp-includes") || req.url.includes('phpinfo') || req.url.includes(".git") || req.url.includes(".env")) {
+        if(req.url.includes('.php') || req.url.includes('.ini') || req.url.includes("wp-admin") || 
+        req.url.includes("wp-includes") || req.url.includes('phpinfo') || req.url.includes(".git") || 
+        req.url.includes(".env")) {
             banObject = {
                 "utcTimeBanned": (Date.now()/1000).toFixed(0),
                 "reasonBanned": "YO DON'T HACK MY SHIT",
@@ -40,15 +41,6 @@ function isBlocked(clientIPv4, req, res) {
     return false;
 }
 
-
-/*
-    "ipBanSchema": {
-        "utcTimeBanned": 232323,
-        "reasonBanned": "",
-        "lengthBanned": "",
-        "logHistory": ""
-    }
-*/
 module.exports = {
     isBlocked
 }
