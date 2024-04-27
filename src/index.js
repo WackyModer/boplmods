@@ -104,13 +104,36 @@ app.get('/discord*', (req, res) => {
 
 
 // Server stuff
+/*
 app.get('/server/uptime', (req, res) => {
     req.headers['']
     res.send(`Server has been up for ${process.uptime().toFixed(0)} seconds, so it is ${(21600-process.uptime()).toFixed(0)} seconds from updating (Updates every 6 hours)
     <br><br>
     Current usages are: ${(100-os.freemem()/os.totalmem()*100).toFixed(1)}% (${((os.totalmem()-os.freemem())/1024/1024/1024).toFixed(1)} GB) mem usage (theres not that much mem)`)
     res.status(200);
+}); */
+
+// Server stuff
+app.get('/server/uptime', (req, res) => {
+    const uptimeSeconds = process.uptime().toFixed(0);
+    const timeUntilUpdate = (21600 - uptimeSeconds).toFixed(0);
+    const memUsagePercent = ((os.totalmem() - os.freemem()) / os.totalmem() * 100).toFixed(1);
+    const memUsageGB = ((os.totalmem() - os.freemem()) / 1024 / 1024 / 1024).toFixed(1);
+
+    console.log("Uptime:" + uptimeSeconds + "\n" + "Time until update:" + timeUntilUpdate + "\n" + "Memory Usage percent:" + memUsagePercent + "\n" + "Memory in use:" + memUsageGB)
+
+    res.render('../storage/specialPages/uptime', {
+        uptime: uptimeSeconds,
+        timeUntilUpdate: timeUntilUpdate,
+        memUsagePercent: memUsagePercent,
+        memUsageGB: memUsageGB
+    });
 });
+
+app.set('view engine', 'html');
+app.engine('html', require('ejs').renderFile);
+app.set('views', __dirname);
+
 
 app.use(function(req, res, next) {
     

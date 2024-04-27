@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Uptime and Memory Usage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #363636;
+            color: #222222;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #616161;
+            border-radius: 5px;
+            padding: 20px;
+            color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .info {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Server Uptime and Memory Usage</h1>
+        <div class="info">
+            <p>Server has been up for <span id="uptime"><%= uptime %></span> seconds, so it is <span id="timeUntilUpdate"><%= timeUntilUpdate %></span> seconds from updating (Updates every 6 hours).</p>
+            <p>Current usage is: <span id="memUsagePercent"><%= memUsagePercent %></span>% (<span id="memUsageGB"><%= memUsageGB %></span> GB) memory usage.</p>
+        </div>
+    </div>
+</body>
+</html>
