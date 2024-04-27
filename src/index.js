@@ -134,6 +134,10 @@ app.set('view engine', 'html');
 app.engine('html', require('ejs').renderFile);
 app.set('views', __dirname);
 
+app.use((err, req, res, next) => {
+    console.error(err.stack)
+    res.status(500).send('you got a little bit silly (AAAAAAAAAAAAAAAAAAAA SOMETHING BROKEEEEEEEEEEE DM MEEEE)');
+})
 
 app.use(function(req, res, next) {
     
