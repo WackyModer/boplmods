@@ -112,6 +112,11 @@ app.get('/server/uptime', (req, res) => {
     res.status(200);
 });
 
+app.use((err, req, res, next) => {
+    console.error(err.stack)
+    res.status(500).send('you got a little bit silly (AAAAAAAAAAAAAAAAAAAA SOMETHING BROKEEEEEEEEEEE DM MEEEE)');
+})
+
 app.use(function(req, res, next) {
     
     if(req.url.toLowerCase().startsWith('/wiki/')) {    

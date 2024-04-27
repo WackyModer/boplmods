@@ -35,7 +35,7 @@ function rebootServer(req,res) {
     return;
 }
 
-function updateMyShit() {
+function updateMyShit(req,res) {
         
     const clientIPv4 = req.headers['cf-connecting-ip'];
 
